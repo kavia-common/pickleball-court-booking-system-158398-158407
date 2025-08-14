@@ -1,16 +1,61 @@
-# pickleball_frontend
+# PicklePlay (pickleball_frontend)
 
-A new Flutter project.
+A modern, playful Flutter frontend for booking pickleball courts. Features:
+- User login/signup
+- Role-based navigation with Admin dashboard
+- Court browsing and booking
+- Group size logic (2–8 players) with capacity validation
+- Sticky header with pickleball paddle icon
+- Vibrant, card-based responsive UI
 
-## Getting Started
+## Tech
+- Flutter (Material 3)
+- Provider for state management
+- flutter_dotenv for configuration
+- shared_preferences for auth token storage
+- http for REST API calls
 
-This project is a starting point for a Flutter application.
+## Environment configuration
+Create a `.env` file (use `.env.example` as a template):
 
-A few resources to get you started if this is your first Flutter project:
+```
+API_BASE_URL=https://your-fastapi.example.com
+SITE_URL=https://your-site.example.com
+APP_NAME=PicklePlay
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Notes:
+- If `API_BASE_URL` is not provided, the app runs in a local mock data mode so you can explore UI and flows.
+- Do NOT commit `.env` to source control.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Running
+- flutter pub get
+- flutter run
+
+## Structure
+- lib/src/app_theme.dart: Theme/colors and playful styles
+- lib/src/env.dart: .env config reader
+- lib/src/services/api_client.dart: REST client to the FastAPI backend
+- lib/src/providers/: State management (Auth, Courts, Bookings)
+- lib/src/pages/: UI pages (Landing, Auth, Home tabs)
+- lib/src/widgets/paddle_icon.dart: Custom pickleball paddle icon
+
+## Backend Endpoints (expected)
+- POST /auth/login {email, password} -> {token, user}
+- POST /auth/signup {name, email, password} -> {user}
+- GET /courts -> [Court]
+- POST /bookings -> Booking
+- GET /bookings/me -> [Booking]
+- GET /admin/summary -> KPIs
+
+Update the endpoints as your backend evolves.
+
+## Theming
+- Primary: #39C26A
+- Secondary: #FDBD10
+- Accent: #345EF8
+
+Rounded corners, card-based layout, and a sticky header with iconography.
+
+## Testing
+- Basic widget test ensures the landing renders and CTA buttons are visible.

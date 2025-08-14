@@ -3,16 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pickleball_frontend/main.dart';
 
 void main() {
-  testWidgets('App generation message displayed', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+  testWidgets('App renders landing with title and action buttons', (WidgetTester tester) async {
+    await tester.pumpWidget(const PicklePlayApp());
+    await tester.pumpAndSettle();
 
-    expect(find.text('pickleball_frontend App is being generated...'), findsOneWidget);
-    expect(find.byType(CircularProgressIndicator), findsOneWidget);
-  });
-
-  testWidgets('App bar has correct title', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
-
-    expect(find.text('pickleball_frontend'), findsOneWidget);
+    // Because bootstrap redirects, we expect to land on LandingPage.
+    expect(find.byType(Scaffold), findsWidgets);
+    // Look for common actions
+    expect(find.textContaining('Log In'), findsWidgets);
+    expect(find.textContaining('Sign Up'), findsWidgets);
   });
 }
